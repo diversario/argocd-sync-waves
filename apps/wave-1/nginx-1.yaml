@@ -24,6 +24,9 @@ spec:
           releaseName: nginx-1
           ignoreMissingValueFiles: true
           values: |
+            service:
+              type: ClusterIP
+
             serverBlock: |-
               server {
                 listen 0.0.0.0:8080;
