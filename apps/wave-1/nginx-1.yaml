@@ -1,0 +1,44 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: nginx-1
+  namespace: argocd
+spec:
+  goTemplate: true
+  generators:
+  - clusters:
+      selector:
+        matchLabels:
+          test: ok
+  template:
+    metadata:
+      name: "nginx-1-{{ .name }}"
+      namespace: nginx-1
+    spec:
+      project: default
+      sources:
+      - repoURL: https://charts.bitnami.com/bitnami
+        chart: nginx
+        targetRevision: 1.8.1
+        helm:
+          releaseName: nginx-1
+          ignoreMissingValueFiles: true
+          values: |
+            serverBlock: |-
+              server {
+                listen 0.0.0.0:8080;
+                location / {
+                  return 200 "nginx 1";
+                }
+              }
+      destination:
+        server: "{{ .server }}"
+        namespace: nginx-1
+      syncPolicy:
+        syncOptions:
+        - CreateNamespace=true
+        - ApplyOutOfSyncOnly=true
+        - ServerSideApply=true
+        automated:
+          selfHeal: true
+      revisionHistoryLimit: 3
