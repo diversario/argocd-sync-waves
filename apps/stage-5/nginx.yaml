@@ -36,7 +36,7 @@ spec:
                 listen 0.0.0.0:8080;
                 location / {
                   add_header "Content-Type" "text/plain";
-                  return 200 "nginx 5";
+                  return 200 "nginx 5, 1";
                 }
               }
       destination:
