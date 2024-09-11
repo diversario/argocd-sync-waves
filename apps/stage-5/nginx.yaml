@@ -9,7 +9,7 @@ spec:
   - clusters:
       selector:
         matchLabels:
-          test: ok
+          argocd.argoproj.io/secret-type": "cluster"
   template:
     metadata:
       name: "nginx-5-{{ .name }}"
