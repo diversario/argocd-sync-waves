@@ -19,7 +19,7 @@ spec:
       sources:
       - repoURL: https://charts.bitnami.com/bitnami
         chart: nginx
-        targetRevision: 1.8.1
+        targetRevision: 1.27.1
         helm:
           releaseName: nginx-1
           ignoreMissingValueFiles: true
