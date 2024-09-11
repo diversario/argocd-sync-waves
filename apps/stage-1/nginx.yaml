@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: nginx-3
+  name: nginx-1
   namespace: argocd
 spec:
   goTemplate: true
@@ -12,8 +12,8 @@ spec:
           test: ok
   template:
     metadata:
-      name: "nginx-3-{{ .name }}"
-      namespace: nginx-3
+      name: "nginx-1-{{ .name }}"
+      namespace: nginx-1
     spec:
       project: default
       sources:
@@ -21,9 +21,13 @@ spec:
         chart: nginx
         targetRevision: 18.1.11
         helm:
-          releaseName: nginx-3
+          releaseName: nginx-1
           ignoreMissingValueFiles: true
           values: |
+            startupProbe:
+              enabled: true
+              initialDelaySeconds: 15
+
             service:
               type: ClusterIP
 
@@ -32,12 +36,12 @@ spec:
                 listen 0.0.0.0:8080;
                 location / {
                   add_header "Content-Type" "text/plain";
-                  return 200 "nginx 3";
+                  return 200 "nginx 1";
                 }
               }
       destination:
         server: "{{ .server }}"
-        namespace: nginx-3
+        namespace: nginx-1
       syncPolicy:
         syncOptions:
         - CreateNamespace=true

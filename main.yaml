@@ -10,7 +10,7 @@ spec:
   project: default
   source:
     repoURL: 'https://github.com/diversario/argocd-sync-waves'
-    path: waves/
+    path: stages/
     targetRevision: main
     directory:
       include: '*.yaml'

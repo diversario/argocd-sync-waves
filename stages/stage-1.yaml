@@ -1,18 +1,18 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: wave-3
+  name: stage-1
   namespace: argocd
   finalizers:
   - resources-finalizer.argocd.argoproj.io
   annotations:
-    argocd.argoproj.io/sync-wave: "3"
+    argocd.argoproj.io/sync-wave: "1"
 spec:
   project: default
   source:
     directory:
       include: '*.yaml'
-    path: apps/wave-3
+    path: apps/stage-1
     repoURL: https://github.com/diversario/argocd-sync-waves
     targetRevision: main
   destination:
