@@ -1,0 +1,48 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: nginx-2
+  namespace: argocd
+spec:
+  goTemplate: true
+  generators:
+  - clusters:
+      selector:
+        matchLabels:
+          test: ok
+  template:
+    metadata:
+      name: "nginx-2-{{ .name }}"
+      namespace: nginx-2
+    spec:
+      project: default
+      sources:
+      - repoURL: https://charts.bitnami.com/bitnami
+        chart: nginx
+        targetRevision: 18.1.11
+        helm:
+          releaseName: nginx-2
+          ignoreMissingValueFiles: true
+          values: |
+            service:
+              type: ClusterIP
+
+            serverBlock: |-
+              server {
+                listen 0.0.0.0:8080;
+                location / {
+                  add_header "Content-Type" "text/plain";
+                  return 200 "nginx 2";
+                }
+              }
+      destination:
+        server: "{{ .server }}"
+        namespace: nginx-2
+      syncPolicy:
+        syncOptions:
+        - CreateNamespace=true
+        - ApplyOutOfSyncOnly=true
+        - ServerSideApply=true
+        automated:
+          selfHeal: true
+      revisionHistoryLimit: 3

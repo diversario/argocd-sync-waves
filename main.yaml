@@ -1,0 +1,25 @@
+# this app is given to argocd directly (copypaste into UI)
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: main
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/diversario/argocd-sync-waves'
+    path: waves/
+    targetRevision: main
+    directory:
+      include: '*.yaml'
+  destination:
+    namespace: argocd
+    name: in-cluster
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
