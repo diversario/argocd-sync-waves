@@ -3,7 +3,16 @@ apiVersion: kind.x-k8s.io/v1alpha4
 nodes:
   - role: control-plane
     image: kindest/node:v1.28.13@sha256:45d319897776e11167e4698f6b14938eb4d52eb381d9e3d7a9086c16c69a8110
+    # extraPortMappings:
+    #   # Port 30443 on the container
+    #   - containerPort: 30443
+    #     # Port 8080 on the host
+    #     hostPort: 8080
+    #     # TCP protocol
+    #     protocol: TCP
+    #     # Default listen address
+    #     listenAddress: "0.0.0.0"
   - role: worker
     image: kindest/node:v1.28.13@sha256:45d319897776e11167e4698f6b14938eb4d52eb381d9e3d7a9086c16c69a8110
 networking:
-  apiServerAddress: 10.7.0.197 # laptop IP
+  apiServerAddress: 192.168.1.228 #10.7.0.197 # laptop IP

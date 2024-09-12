@@ -59,7 +59,7 @@
    ```
    then change the `git config` invocation in `start` target from `*` to that specific directory and rerun.
 5. Go to the UI at http://localhost:4000/settings/repos and add a public GH repo (public so no auth config required)
-6. Go to http://localhost:4000/applications and add a new app that uses the repo from the previous step. You will likely see this in the repo server logs:
+6. Go to http://localhost:4000/applications and add a new app that uses the repo from the previous step. Copypaste the YAML from `main.yaml` into this new app. You will likely see this in the repo server logs:
     ```
     09:44:04               repo-server | ERRO[0218] finished unary call with code Unknown         error="failed to initialize repository resources: rpc error: code = Internal desc = Failed to fetch default: `git fetch origin --tags --force --prune` failed exit status 128: fatal: detected dubious ownership in repository at '<path to cached source> add an exception for this directory, call:\n\n\tgit config --global --add safe.directory <path to cached source>" grpc.code=Unknown grpc.method=GenerateManifest grpc.service=repository.RepoServerService grpc.start_time="2024-09-11T09:44:04Z" grpc.time_ms=245.089 span.kind=server system=grpc
     ```
