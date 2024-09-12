@@ -14,7 +14,7 @@ spec:
     path: stages/
     targetRevision: main
     directory:
-      include: '*.yaml'
+      include: 'stage-1.yaml'
   destination:
     namespace: argocd
     name: in-cluster
